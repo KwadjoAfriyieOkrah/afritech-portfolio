@@ -204,7 +204,7 @@ function ContactSection() {
     setError(false)
 
     try {
-      const response = await fetch('https://formsubmit.co/ajax/afritech369@yahoo.com', {
+      const response = await fetch('https://formsubmit.co/ajax/afritech369@gmail.com', {
         method: 'POST',
         headers: { Accept: 'application/json' },
         body: new FormData(event.currentTarget),
