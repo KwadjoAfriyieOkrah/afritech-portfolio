@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { FaEnvelope, FaPaperPlane, FaTiktok, FaWhatsapp } from 'react-icons/fa6'
+import emailjs from '@emailjs/browser'
 
 const projects = [
   {
@@ -227,7 +228,7 @@ function ContactSection() {
           <h2 className="section-title">Have a good<br /><em>problem?</em></h2>
           <p>Tell me what you’re trying to make, improve, or understand. I’ll bring questions, structure, and a practical next step.</p>
           <div className="contact-links">
-            <a className="email-link" href="mailto:afritech369@yahoo.com"><FaEnvelope className="contact-icon" aria-hidden="true" />afritech369@gmail.com</a>
+            <a className="email-link" href="mailto:afritech369@gmail.com"><FaEnvelope className="contact-icon" aria-hidden="true" />afritech369@gmail.com</a>
             <a className="contact-link" href="https://wa.me/233546215695" target="_blank" rel="noreferrer"><FaWhatsapp className="contact-icon" aria-hidden="true" />WhatsApp: 0546215695</a>
             <a className="contact-link" href="https://www.tiktok.com/@afr_tech" target="_blank" rel="noreferrer"><FaTiktok className="contact-icon" aria-hidden="true" />TikTok: @afr_tech</a>
           </div>
@@ -235,6 +236,9 @@ function ContactSection() {
         <form className="contact-form" onSubmit={handleSubmit}>
           <input type="hidden" name="_subject" value="New AFRITECH website enquiry" />
           <input type="hidden" name="_captcha" value="false" />
+          <input type="hidden" name="_template" value="table" />
+          <input type="hidden" name="_next" value="https://kwadjoafriyieokrah.github.io/afritech-portfolio/#contact?sent=true" />
+          <input type="checkbox" name="_gotcha" style={{ display: 'none' }} tabIndex={-1} autoComplete="off" />
           <label>Name<input required name="name" placeholder="Your name" /></label>
           <label>Email<input required type="email" name="email" placeholder="you@company.com" /></label>
           <label>Message<textarea required name="message" rows="4" placeholder="What are you working on?"></textarea></label>
