@@ -79,7 +79,7 @@ function HeroSection() {
       <p className="eyebrow reveal">Full Stack developer <span className="eyebrow-dot"></span> Accra, Ghana</p>
       <h1 className="hero-title reveal delay-one">Digital tools for<br /><em>real-world</em> momentum.</h1>
       <div className="hero-bottom reveal delay-two">
-        <p className="hero-copy">I’m Kwadwo, the person behind AFRITECH. I build practical web applications, automation tools, and digital systems that make good ideas easier to run.</p>
+        <p className="hero-copy">I'm Kwadwo, the person behind AFRITECH. I build practical web applications, automation tools, and digital systems that make good ideas easier to run.</p>
         <div className="hero-actions">
           <a className="button button-primary" href="#work">Explore selected work <ArrowIcon /></a>
           <a className="text-link" href="#about">More about me <ArrowIcon /></a>
@@ -99,7 +99,7 @@ function AboutSection() {
         <h2 className="section-title">Less noise.<br /><em>More useful.</em></h2>
         <div className="about-copy">
           <p className="lead-copy">Technology should help people move with more confidence. That belief shapes every interface, workflow, and system I make.</p>
-          <p>I’m a full-stack developer and problem solver focused on translating messy, ambitious ideas into calm, working products. From a logistics platform to a research automation tool, I care about the part after the launch: whether the thing is actually useful.</p>
+          <p>I'm a full-stack developer and problem solver focused on translating messy, ambitious ideas into calm, working products. From a logistics platform to a research automation tool, I care about the part after the launch: whether the thing is actually useful.</p>
           <p>AFRITECH is where I experiment, learn in public, and partner with people building something that matters to them.</p>
           <a className="text-link" href="#contact">Start a conversation <ArrowIcon /></a>
         </div>
@@ -197,6 +197,10 @@ function ContactSection() {
   const [submitting, setSubmitting] = useState(false)
   const [error, setError] = useState(false)
 
+  const EMAILJS_SERVICE_ID = 'service_uw72d0o'
+  const EMAILJS_TEMPLATE_ID = 'template_3vubswb'
+  const EMAILJS_PUBLIC_KEY = 'ZDMqzrNQn5WmsG6Ut'
+
   async function handleSubmit(event) {
     event.preventDefault()
     setSubmitting(true)
@@ -204,15 +208,14 @@ function ContactSection() {
     setError(false)
 
     try {
-      const response = await fetch('https://formsubmit.co/ajax/afritech369@gmail.com', {
-        method: 'POST',
-        headers: { Accept: 'application/json' },
-        body: new FormData(event.currentTarget),
-      })
-
-      if (!response.ok) throw new Error('Message submission failed')
-
-      event.currentTarget.reset()
+      const form = event.currentTarget
+      await emailjs.sendForm(
+        EMAILJS_SERVICE_ID,
+        EMAILJS_TEMPLATE_ID,
+        form,
+        EMAILJS_PUBLIC_KEY
+      )
+      form.reset()
       setSent(true)
     } catch {
       setError(true)
@@ -226,7 +229,7 @@ function ContactSection() {
       <div className="contact-layout">
         <div className="contact-intro">
           <h2 className="section-title">Have a good<br /><em>problem?</em></h2>
-          <p>Tell me what you’re trying to make, improve, or understand. I’ll bring questions, structure, and a practical next step.</p>
+          <p>Tell me what you're trying to make, improve, or understand. I'll bring questions, structure, and a practical next step.</p>
           <div className="contact-links">
             <a className="email-link" href="mailto:afritech369@gmail.com"><FaEnvelope className="contact-icon" aria-hidden="true" />afritech369@gmail.com</a>
             <a className="contact-link" href="https://wa.me/233546215695" target="_blank" rel="noreferrer"><FaWhatsapp className="contact-icon" aria-hidden="true" />WhatsApp: 0546215695</a>
@@ -234,13 +237,8 @@ function ContactSection() {
           </div>
         </div>
         <form className="contact-form" onSubmit={handleSubmit}>
-          <input type="hidden" name="_subject" value="New AFRITECH website enquiry" />
-          <input type="hidden" name="_captcha" value="false" />
-          <input type="hidden" name="_template" value="table" />
-          <input type="hidden" name="_next" value="https://kwadjoafriyieokrah.github.io/afritech-portfolio/#contact?sent=true" />
-          <input type="checkbox" name="_gotcha" style={{ display: 'none' }} tabIndex={-1} autoComplete="off" />
-          <label>Name<input required name="name" placeholder="Your name" /></label>
-          <label>Email<input required type="email" name="email" placeholder="you@company.com" /></label>
+          <label>Name<input required name="from_name" placeholder="Your name" /></label>
+          <label>Email<input required type="email" name="from_email" placeholder="you@company.com" /></label>
           <label>Message<textarea required name="message" rows="4" placeholder="What are you working on?"></textarea></label>
           <button className="button button-primary" type="submit" disabled={submitting}>{submitting ? 'Sending...' : 'Send an enquiry'} <FaPaperPlane className="send-icon" aria-hidden="true" /></button>
           {sent && <p className="form-note" role="status">Thanks. Your message was sent successfully.</p>}
