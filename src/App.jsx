@@ -203,7 +203,7 @@ function ContactSection() {
     setError(false)
 
     try {
-      const response = await fetch('https://formsubmit.co/ajax/afritech@yahoo.com', {
+      const response = await fetch('https://formsubmit.co/ajax/afritech369@yahoo.com', {
         method: 'POST',
         headers: { Accept: 'application/json' },
         body: new FormData(event.currentTarget),
@@ -227,7 +227,7 @@ function ContactSection() {
           <h2 className="section-title">Have a good<br /><em>problem?</em></h2>
           <p>Tell me what you’re trying to make, improve, or understand. I’ll bring questions, structure, and a practical next step.</p>
           <div className="contact-links">
-            <a className="email-link" href="mailto:afritech@gmail.com"><FaEnvelope className="contact-icon" aria-hidden="true" />afritech@gmail.com</a>
+            <a className="email-link" href="mailto:afritech369@yahoo.com"><FaEnvelope className="contact-icon" aria-hidden="true" />afritech369@gmail.com</a>
             <a className="contact-link" href="https://wa.me/233546215695" target="_blank" rel="noreferrer"><FaWhatsapp className="contact-icon" aria-hidden="true" />WhatsApp: 0546215695</a>
             <a className="contact-link" href="https://www.tiktok.com/@afr_tech" target="_blank" rel="noreferrer"><FaTiktok className="contact-icon" aria-hidden="true" />TikTok: @afr_tech</a>
           </div>
@@ -240,7 +240,7 @@ function ContactSection() {
           <label>Message<textarea required name="message" rows="4" placeholder="What are you working on?"></textarea></label>
           <button className="button button-primary" type="submit" disabled={submitting}>{submitting ? 'Sending...' : 'Send an enquiry'} <FaPaperPlane className="send-icon" aria-hidden="true" /></button>
           {sent && <p className="form-note" role="status">Thanks. Your message was sent successfully.</p>}
-          {error && <p className="form-error" role="alert">The message could not be sent. Please email afritech@yahoo.com directly.</p>}
+          {error && <p className="form-error" role="alert">The message could not be sent. Please email afritech369@gmail.com directly.</p>}
         </form>
       </div>
     </section>
