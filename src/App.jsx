@@ -198,6 +198,7 @@ function ContactSection() {
 
   async function handleSubmit(event) {
     event.preventDefault()
+    const form = event.currentTarget
     setSubmitting(true)
     setSent(false)
     setError(false)
@@ -206,25 +207,23 @@ function ContactSection() {
       const response = await fetch('https://formsubmit.co/ajax/afritech369@gmail.com', {
         method: 'POST',
         headers: { Accept: 'application/json' },
-        body: new FormData(event.currentTarget),
+        body: new FormData(form),
       })
 
       let data = {}
       try {
         data = await response.json()
       } catch {
-        // If not JSON, check text response
         const text = await response.text().catch(() => '')
         if (text.toLowerCase().includes('success')) {
           data = { success: true }
         }
       }
 
-      // FormSubmit returns {success: true} or {success: "true"} on success
       const isSuccess = response.ok || data.success === true || data.success === 'true'
 
       if (isSuccess) {
-        event.currentTarget.reset()
+        form.reset()
         setSent(true)
       } else {
         console.log('FormSubmit response:', response.status, data)
