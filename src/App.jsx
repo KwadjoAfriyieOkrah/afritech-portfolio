@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import { FaEnvelope, FaPaperPlane, FaTiktok, FaWhatsapp } from 'react-icons/fa6'
-import emailjs from '@emailjs/browser'
 
 const projects = [
   {
@@ -197,10 +196,6 @@ function ContactSection() {
   const [submitting, setSubmitting] = useState(false)
   const [error, setError] = useState(false)
 
-  const EMAILJS_SERVICE_ID = 'service_tz7qzpp'
-  const EMAILJS_TEMPLATE_ID = 'template_3vubswb'
-  const EMAILJS_PUBLIC_KEY = 'ZDMqzrNQn5WmsG6Ut'
-
   async function handleSubmit(event) {
     event.preventDefault()
     setSubmitting(true)
@@ -208,14 +203,15 @@ function ContactSection() {
     setError(false)
 
     try {
-      const form = event.currentTarget
-      await emailjs.sendForm(
-        EMAILJS_SERVICE_ID,
-        EMAILJS_TEMPLATE_ID,
-        form,
-        EMAILJS_PUBLIC_KEY
-      )
-      form.reset()
+      const response = await fetch('https://formsubmit.co/ajax/afritech369@gmail.com', {
+        method: 'POST',
+        headers: { Accept: 'application/json' },
+        body: new FormData(event.currentTarget),
+      })
+
+      if (!response.ok) throw new Error('Message submission failed')
+
+      event.currentTarget.reset()
       setSent(true)
     } catch {
       setError(true)
@@ -237,8 +233,13 @@ function ContactSection() {
           </div>
         </div>
         <form className="contact-form" onSubmit={handleSubmit}>
-          <label>Name<input required name="from_name" placeholder="Your name" /></label>
-          <label>Email<input required type="email" name="from_email" placeholder="you@company.com" /></label>
+          <input type="hidden" name="_subject" value="New AFRITECH website enquiry" />
+          <input type="hidden" name="_captcha" value="false" />
+          <input type="hidden" name="_template" value="table" />
+          <input type="hidden" name="_next" value="https://kwadjoafriyieokrah.github.io/afritech-portfolio/#contact?sent=true" />
+          <input type="checkbox" name="_gotcha" style={{ display: 'none' }} tabIndex={-1} autoComplete="off" />
+          <label>Name<input required name="name" placeholder="Your name" /></label>
+          <label>Email<input required type="email" name="email" placeholder="you@company.com" /></label>
           <label>Message<textarea required name="message" rows="4" placeholder="What are you working on?"></textarea></label>
           <button className="button button-primary" type="submit" disabled={submitting}>{submitting ? 'Sending...' : 'Send an enquiry'} <FaPaperPlane className="send-icon" aria-hidden="true" /></button>
           {sent && <p className="form-note" role="status">Thanks. Your message was sent successfully.</p>}
