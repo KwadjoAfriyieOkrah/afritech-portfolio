@@ -209,10 +209,14 @@ function ContactSection() {
         body: new FormData(event.currentTarget),
       })
 
-      if (!response.ok) throw new Error('Message submission failed')
-
-      event.currentTarget.reset()
-      setSent(true)
+      const data = await response.json().catch(() => ({}))
+      // FormSubmit returns {success: true} on success, but sometimes response.ok is false
+      if (response.ok || data.success === true) {
+        event.currentTarget.reset()
+        setSent(true)
+      } else {
+        throw new Error('Message submission failed')
+      }
     } catch {
       setError(true)
     } finally {
