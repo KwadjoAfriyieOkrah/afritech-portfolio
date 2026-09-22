@@ -197,7 +197,7 @@ function ContactSection() {
   const [submitting, setSubmitting] = useState(false)
   const [error, setError] = useState(false)
 
-  const EMAILJS_SERVICE_ID = 'service_uw72d0o'
+  const EMAILJS_SERVICE_ID = 'service_tz7qzpp'
   const EMAILJS_TEMPLATE_ID = 'template_3vubswb'
   const EMAILJS_PUBLIC_KEY = 'ZDMqzrNQn5WmsG6Ut'
 
