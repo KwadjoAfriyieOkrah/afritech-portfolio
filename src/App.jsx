@@ -3,6 +3,25 @@ import { FaEnvelope, FaPaperPlane, FaTiktok, FaWhatsapp } from 'react-icons/fa6'
 
 const projects = [
   {
+    type: 'Event ticketing platform',
+    title: 'EventHub',
+    description: 'Discover events across Ghana, see ticket availability, and get a single-use QR ticket after checkout.',
+    overview: 'EventHub brings events across Ghana into one place. Visitors can browse live availability, pay by card or mobile money, and receive a scannable ticket by email.',
+    highlights: ['Upcoming events across Ghana', 'Live ticket availability', 'Paystack card and mobile money checkout', 'Single-use QR tickets for entry'],
+    tags: ['Event discovery', 'Paystack', 'QR ticketing'],
+    image: 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&w=1200&q=80',
+    gallery: [
+      { image: 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&w=1200&q=80', alt: 'Conference audience at a live event', label: 'Accra Tech Summit' },
+      { image: 'https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?auto=format&fit=crop&w=1200&q=80', alt: 'Crowd enjoying a live music performance', label: 'Amapiano Night' },
+      { image: 'https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?auto=format&fit=crop&w=1200&q=80', alt: 'Outdoor festival with a colorful stage', label: 'Chale Wote Festival' },
+      { image: 'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=1200&q=80', alt: 'Food prepared for a culinary event', label: 'Kumasi Food Expo' },
+      { image: 'https://images.unsplash.com/photo-1601597111158-2fceff292cdc?auto=format&fit=crop&w=1200&q=80', alt: 'People gathered at a community event', label: 'Fintech & Payments Forum' },
+      { image: 'https://images.unsplash.com/photo-1513364776144-60967b0f800f?auto=format&fit=crop&w=1200&q=80', alt: 'Artist working on a colorful painting', label: 'Adinkra Symbols Masterclass' },
+    ],
+    tone: 'gold',
+    liveLink: 'https://event-ticketing-production-e00a.up.railway.app',
+  },
+  {
     type: 'Full-stack e-commerce',
     title: 'VELOURA E-commerce',
     description: 'A complete shopping experience where customers can browse products, create accounts, manage a cart, and track deliveries.',
@@ -123,12 +142,22 @@ function ProjectOverview({ project, onClose }) {
         <p className="project-type">{project.type}</p>
         <h2 id="project-overview-title">{project.title}</h2>
         <p className="modal-overview">{project.overview}</p>
+        {project.gallery && (
+          <div className="modal-gallery" aria-label={`${project.title} event previews`}>
+            {project.gallery.map((item) => (
+              <figure key={item.label}>
+                <img src={item.image} alt={item.alt} />
+                <figcaption>{item.label}</figcaption>
+              </figure>
+            ))}
+          </div>
+        )}
         <h3>Project highlights</h3>
         <ul className="modal-highlights">
           {project.highlights.map((highlight) => <li key={highlight}>{highlight}</li>)}
         </ul>
         {project.liveLink ? (
-          <a className="button button-primary" href={project.liveLink} target="_blank" rel="noreferrer">View live project <ArrowIcon /></a>
+          <a className="button button-primary" href={project.liveLink} target="_blank" rel="noopener noreferrer">View live project <ArrowIcon /></a>
         ) : (
           <p className="modal-pending">Live link coming soon. The GitHub link will be added when provided.</p>
         )}
@@ -147,10 +176,10 @@ function WorkSection({ onProjectSelect }) {
         <p className="heading-aside">A growing collection of platforms, experiments, and systems designed around a simple question: what would make this easier?</p>
       </div>
       <div className="project-list">
-        {projects.map((project) => (
+        {projects.map((project, index) => (
           <article className={`project-card ${project.tone}`} key={project.title}>
             <div className="project-visual" style={{ backgroundImage: `url(${project.image})` }}>
-              <span className="project-number">{project.number}</span>
+              <span className="project-number">{String(index + 1).padStart(2, '0')}</span>
               <span className="project-status">{project.liveLink ? 'Live project' : 'In progress'}</span>
             </div>
             <div className="project-info">
