@@ -312,6 +312,7 @@ export default function App() {
       <WorkSection onProjectSelect={setSelectedProject} />
       <SkillsSection />
       <ContactSection />
+      <Analytics />
     </main>
     <Footer />
     <ProjectOverview project={selectedProject} onClose={() => setSelectedProject(null)} />
