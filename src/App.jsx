@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { Analytics } from '@vercel/analytics/react'
 import { FaEnvelope, FaPaperPlane, FaTiktok, FaWhatsapp } from 'react-icons/fa6'
 
 const projects = [
